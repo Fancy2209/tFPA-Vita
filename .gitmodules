@@ -2,6 +2,6 @@
 	path = lib/falso_jni
 	url = https://github.com/v-atamanenko/FalsoJNI.git
 	branch = master
-[submodule "lib/falso_ndk"]
-	path = lib/falso_ndk
+[submodule "lib/AFakeNative"]
+	path = lib/AFakeNative
 	url = https://github.com/v-atamanenko/FalsoNDK/

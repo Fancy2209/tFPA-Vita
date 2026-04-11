@@ -4,9 +4,10 @@
 #include <psp2/kernel/threadmgr.h>
 
 #include <falso_jni/FalsoJNI.h>
+#include <AFakeNative/AFakeNative.h>
 #include <so_util/so_util.h>
 
-#include "reimpl/controls.h"
+#include <AFakeNative/utils/controls.h>
 
 int _newlib_heap_size_user = 256 * 1024 * 1024;
 
@@ -19,29 +20,28 @@ so_module so_mod;
 int main() {
     soloader_init_all();
 
-    int (* JNI_OnLoad)(void *jvm) = (void *)so_symbol(&so_mod, "JNI_OnLoad");
-    JNI_OnLoad(&jvm);
+    int (*ANativeActivity_onCreate)(ANativeActivity *activity, void *savedState,
+									size_t savedStateSize) = (void *) so_symbol(&so_mod, "ANativeActivity_onCreate");
 
-    gl_init();
+	ANativeActivity *activity = ANativeActivity_create();
+	sceClibPrintf("Created NativeActivity object");
 
-    // ... do some initialization
+	ANativeActivity_onCreate(activity, NULL, 0);
+	sceClibPrintf("ANativeActivity_onCreate() passed");
 
-    while (1) {
-        // ... render call
-        gl_swap();
-    }
+	activity->callbacks->onStart(activity);
+	sceClibPrintf("onStart() passed");
+
+	AInputQueue *aInputQueue = AInputQueue_create();
+	activity->callbacks->onInputQueueCreated(activity, aInputQueue);
+	sceClibPrintf("onInputQueueCreated() passed");
+
+	ANativeWindow *aNativeWindow = ANativeWindow_create();
+	activity->callbacks->onNativeWindowCreated(activity, aNativeWindow);
+	sceClibPrintf("onNativeWindowCreated() passed");
+
+	activity->callbacks->onWindowFocusChanged(activity, 1);
+	sceClibPrintf("onWindowFocusChanged() passed");
 
     sceKernelExitDeleteThread(0);
-}
-
-void controls_handler_key(int32_t keycode, ControlsAction action) {
-    // Call into the .so here
-}
-
-void controls_handler_touch(int32_t id, float x, float y, ControlsAction action) {
-    // Call into the .so here
-}
-
-void controls_handler_analog(ControlsStickId which, float x, float y, ControlsAction action) {
-    // Call into the .so here
 }

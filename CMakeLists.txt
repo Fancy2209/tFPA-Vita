@@ -11,10 +11,10 @@ project(so_loader C CXX)
 include("${VITASDK}/share/vita.cmake" REQUIRED)
 
 # Vita application configuration
-set(VITA_APP_NAME "so-loader")
-set(VITA_TITLEID "SLDR00000")
-set(VITA_VPKNAME "so_loader")
-set(VITA_VERSION "01.00")
+set(VITA_APP_NAME "The Fancy Pants Adventures")
+set(VITA_TITLEID "TFPA00000")
+set(VITA_VPKNAME "tFPA")
+set(VITA_VERSION "01.23")
 set(VITA_MKSFOEX_FLAGS "-d ATTRIBUTE2=12")
 
 # Optional: used for "send" and "dump" targets
@@ -22,7 +22,7 @@ set(PSVITAIP "192.168.0.198" CACHE STRING "PSVita IP (for FTP access)")
 set(PARSECOREPATH "$ENV{PARSECOREPATH}" CACHE STRING "vita-parse-core main.py")
 
 # Game-specific definitions
-set(DATA_PATH "ux0:data/gamename/" CACHE STRING "Path to data (with trailing /)")
+set(DATA_PATH "ux0:data/tFPA/" CACHE STRING "Path to data (with trailing /)")
 set(SO_PATH "${DATA_PATH}main.so" CACHE STRING "Path to .so")
 add_definitions(-DDATA_PATH="${DATA_PATH}" -DSO_PATH="${SO_PATH}")
 
@@ -81,8 +81,6 @@ add_executable(${CMAKE_PROJECT_NAME}
                source/java.c
                source/patch.c
                source/reimpl/bits/_ctype.c
-               source/reimpl/controls.c
-               source/reimpl/controls.h
                source/reimpl/egl.c
                source/reimpl/errno.c
                source/reimpl/io.c
@@ -102,6 +100,19 @@ add_executable(${CMAKE_PROJECT_NAME}
                lib/falso_jni/FalsoJNI_ImplBridge.c
                lib/falso_jni/FalsoJNI_Logger.c
                lib/falso_jni/converter.c
+               lib/AFakeNative/AAssetManager.cpp
+               lib/AFakeNative/AConfiguration.cpp
+               lib/AFakeNative/AFakeNative_Utils.cpp
+               lib/AFakeNative/AInput.cpp
+               lib/AFakeNative/ALooper.cpp
+               lib/AFakeNative/ANativeActivity.cpp
+               lib/AFakeNative/ANativeWindow.cpp
+               lib/AFakeNative/ASensor.cpp
+               lib/AFakeNative/polling/pseudo_eventfd.cpp
+               lib/AFakeNative/polling/pseudo_pipe.cpp
+               lib/AFakeNative/PseudoEpoll.cpp
+               lib/AFakeNative/utils/controls.cpp
+               lib/AFakeNative/utils/sensors.cpp
                lib/sha1/sha1.c
                lib/fios/fios.c
                lib/so_util/so_util.c)

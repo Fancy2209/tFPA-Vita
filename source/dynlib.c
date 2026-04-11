@@ -56,6 +56,7 @@
 #include "reimpl/egl.h"
 #include "reimpl/time64.h"
 #include "reimpl/asset_manager.h"
+#include <AFakeNative/AFakeNative.h>
 
 const unsigned int __page_size = PAGE_SIZE;
 
@@ -1048,6 +1049,9 @@ so_default_dynlib default_dynlib[] = {
         { "inflateReset", (uintptr_t)&inflateReset },
         { "inflateReset2", (uintptr_t)&inflateReset2 },
         { "uncompress", (uintptr_t)&uncompress },
+        
+        // FalsoNDK
+        
 };
 
 void *dlsym_soloader(void * handle, const char * symbol) {
