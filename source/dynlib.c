@@ -130,6 +130,79 @@ static FILE __sF_fake[3];
 
 void *dlsym_soloader(void * handle, const char * symbol);
 
+
+int AInputEvent_getDeviceId() {
+	//sceClibPrintf("unimpl: AInputEvent_getDeviceId");
+	return 0;
+}
+int AKeyEvent_getFlags() {
+	//sceClibPrintf("unimpl: AKeyEvent_getFlags");
+	return 0;
+}
+int AKeyEvent_getMetaState() {
+	//sceClibPrintf("unimpl: AKeyEvent_getMetaState");
+	return 0;
+}
+int AMotionEvent_getFlags() {
+	//sceClibPrintf("unimpl: AMotionEvent_getFlags");
+	return 0;
+}
+int AMotionEvent_getHistoricalX() {
+	sceClibPrintf("unimpl: AMotionEvent_getHistoricalX");
+	return 0;
+}
+int AMotionEvent_getHistoricalY() {
+	sceClibPrintf("unimpl: AMotionEvent_getHistoricalY");
+	return 0;
+}
+int AMotionEvent_getHistorySize() {
+	//sceClibPrintf("unimpl: AMotionEvent_getHistorySize");
+	return 0;
+}
+int AMotionEvent_getMetaState() {
+	//sceClibPrintf("unimpl: AMotionEvent_getMetaState");
+	return 0;
+}
+
+int AMotionEvent_getEventTime(const struct AInputEvent *motion_event)
+{
+   return 0;
+}
+
+size_t __strlen_chk(const char *s, size_t s_len) {
+	return strlen(s);
+}
+
+
+int __vsprintf_chk(char* dest, int flags, size_t dest_len_from_compiler, const char *format, va_list va) {
+	return vsprintf(dest, format, va);
+}
+
+char *__strcpy_chk(char *dest, const char *src, size_t destlen) {
+	return strcpy(dest, src);
+}
+
+char *__strcat_chk(char *dest, const char *src, size_t destlen) {
+	return strcat(dest, src);
+}
+
+int __vsnprintf_chk(char *s, size_t maxlen, int flag, size_t slen, const char *format, va_list args) {
+	return vsnprintf(s, maxlen, format, args);
+}
+
+void *__memcpy_chk(void *dest, const void *src, size_t len, size_t destlen) {
+	return sceClibMemcpy(dest, src, len);
+}
+
+int posix_memalign(void **memptr, size_t alignment, size_t size) {
+	*memptr = memalign(alignment, size);
+	return 0;
+}
+
+char *__strncpy_chk2(char *dst, const char *src, size_t n, size_t dest_len, size_t src_len) {
+	return strncpy(dst, src, n);
+}
+
 so_default_dynlib default_dynlib[] = {
         // Common C/C++ internals
         { "_ZNSt8bad_castD1Ev", (uintptr_t)&_ZNSt8bad_castD1Ev },
@@ -214,6 +287,18 @@ so_default_dynlib default_dynlib[] = {
         { "__swbuf", (uintptr_t)&__swbuf },
         { "__system_property_get", (uintptr_t)&__system_property_get_soloader },
         { "__assert2", (uintptr_t)&ret0 }, // TODO: stub/impl
+        { "__strlen_chk", (uintptr_t)&__strlen_chk },
+        { "__vsprintf_chk", (uintptr_t)&__vsprintf_chk },
+        { "__strcpy_chk", (uintptr_t)&__strcpy_chk },
+        { "__strcat_chk", (uintptr_t)&__strcat_chk },
+        { "__strncpy_chk2", (uintptr_t)&__strncpy_chk2 },
+        { "__vsnprintf_chk", (uintptr_t)&__vsnprintf_chk },
+        { "__memcpy_chk", (uintptr_t)&__memcpy_chk },
+        { "strtoll_l", (uintptr_t)&strtoll_l },
+        { "strtoull_l", (uintptr_t)&strtoull_l },
+        { "strtold_l", (uintptr_t)&strtold_l },
+        { "clearerr", (uintptr_t)&clearerr },
+        { "posix_memalign", (uintptr_t)&posix_memalign },
         { "dl_unwind_find_exidx", (uintptr_t)&ret0 }, // TODO: stub/impl
 
 
@@ -294,6 +379,8 @@ so_default_dynlib default_dynlib[] = {
         { "lrintf", (uintptr_t)&lrintf },
         { "lround", (uintptr_t)&lround },
         { "lroundf", (uintptr_t)&lroundf },
+        { "ldiv", (uintptr_t)&ldiv },
+        { "modff", (uintptr_t)&modff },
         { "modf", (uintptr_t)&modf },
         { "pow", (uintptr_t)&pow },
         { "powf", (uintptr_t)&powf },
@@ -780,6 +867,7 @@ so_default_dynlib default_dynlib[] = {
         { "SL_IID_PREFETCHSTATUS", (uintptr_t)&SL_IID_PREFETCHSTATUS },
         { "SL_IID_SEEK", (uintptr_t)&SL_IID_SEEK },
         { "SL_IID_VOLUME", (uintptr_t)&SL_IID_VOLUME },
+        { "SL_IID_ENVIRONMENTALREVERB", (uintptr_t)&SL_IID_ENVIRONMENTALREVERB },
         { "slCreateEngine", (uintptr_t)&slCreateEngine },
 
 
@@ -1051,6 +1139,52 @@ so_default_dynlib default_dynlib[] = {
         { "uncompress", (uintptr_t)&uncompress },
         
         // FalsoNDK
+		{ "AConfiguration_delete", (uintptr_t)&AConfiguration_delete },
+		{ "AConfiguration_fromAssetManager", (uintptr_t)&AConfiguration_fromAssetManager },
+		{ "AConfiguration_getCountry", (uintptr_t)&AConfiguration_getCountry },
+		{ "AConfiguration_getLanguage", (uintptr_t)&AConfiguration_getLanguage },
+		{ "AConfiguration_new", (uintptr_t)&AConfiguration_new },
+		{ "AConfiguration_getDensity", (uintptr_t)&AConfiguration_getDensity },
+		{ "AConfiguration_getScreenSize", (uintptr_t)&AConfiguration_getScreenSize },
+		{ "AInputEvent_getDeviceId", (uintptr_t)&AInputEvent_getDeviceId },
+		{ "AInputEvent_getSource", (uintptr_t)&AInputEvent_getSource },
+		{ "AInputEvent_getType", (uintptr_t)&AInputEvent_getType },
+		{ "AInputQueue_attachLooper", (uintptr_t)&AInputQueue_attachLooper },
+		{ "AInputQueue_detachLooper", (uintptr_t)&AInputQueue_detachLooper },
+		{ "AInputQueue_finishEvent", (uintptr_t)&AInputQueue_finishEvent },
+		{ "AInputQueue_getEvent", (uintptr_t)&AInputQueue_getEvent },
+		{ "AInputQueue_preDispatchEvent", (uintptr_t)&AInputQueue_preDispatchEvent },
+		{ "AKeyEvent_getAction", (uintptr_t)&AKeyEvent_getAction },
+		{ "AKeyEvent_getFlags", (uintptr_t)&AKeyEvent_getFlags },
+		{ "AKeyEvent_getKeyCode", (uintptr_t)&AKeyEvent_getKeyCode },
+		{ "AKeyEvent_getMetaState", (uintptr_t)&AKeyEvent_getMetaState },
+		{ "ALooper_addFd", (uintptr_t)&ALooper_addFd },
+		{ "ALooper_pollAll", (uintptr_t)&ALooper_pollAll },
+		{ "ALooper_prepare", (uintptr_t)&ALooper_prepare },
+		{ "AMotionEvent_getAction", (uintptr_t)&AMotionEvent_getAction },
+		{ "AMotionEvent_getAxisValue", (uintptr_t)&AMotionEvent_getAxisValue },
+		{ "AMotionEvent_getFlags", (uintptr_t)&AMotionEvent_getFlags },
+		{ "AMotionEvent_getHistoricalX", (uintptr_t)&AMotionEvent_getHistoricalX },
+		{ "AMotionEvent_getHistoricalY", (uintptr_t)&AMotionEvent_getHistoricalY },
+		{ "AMotionEvent_getHistorySize", (uintptr_t)&AMotionEvent_getHistorySize },
+		{ "AMotionEvent_getMetaState", (uintptr_t)&AMotionEvent_getMetaState },
+		{ "AMotionEvent_getPointerCount", (uintptr_t)&AMotionEvent_getPointerCount },
+		{ "AMotionEvent_getEventTime", (uintptr_t)&AMotionEvent_getEventTime },
+		{ "AMotionEvent_getPointerId", (uintptr_t)&AMotionEvent_getPointerId },
+		{ "AMotionEvent_getX", (uintptr_t)&AMotionEvent_getX },
+		{ "AMotionEvent_getY", (uintptr_t)&AMotionEvent_getY },
+		{ "ANativeActivity_finish", (uintptr_t)&ANativeActivity_finish },
+		{ "ANativeActivity_setWindowFlags", (uintptr_t)&ANativeActivity_setWindowFlags },
+		{ "ANativeWindow_getHeight", (uintptr_t)&ANativeWindow_getHeight },
+		{ "ANativeWindow_getWidth", (uintptr_t)&ANativeWindow_getWidth },
+		{ "ANativeWindow_setBuffersGeometry", (uintptr_t)&ANativeWindow_setBuffersGeometry },
+		{ "ASensorEventQueue_disableSensor", (uintptr_t)&ASensorEventQueue_disableSensor },
+		{ "ASensorEventQueue_enableSensor", (uintptr_t)&ASensorEventQueue_enableSensor },
+		{ "ASensorEventQueue_getEvents", (uintptr_t)&ASensorEventQueue_getEvents },
+		{ "ASensorEventQueue_setEventRate", (uintptr_t)&ASensorEventQueue_setEventRate },
+		{ "ASensorManager_createEventQueue", (uintptr_t)&ASensorManager_createEventQueue },
+		{ "ASensorManager_getDefaultSensor", (uintptr_t)&ASensorManager_getDefaultSensor },
+		{ "ASensorManager_getInstance", (uintptr_t)&ASensorManager_getInstance },
         
 };
 

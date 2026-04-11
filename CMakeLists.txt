@@ -23,7 +23,7 @@ set(PARSECOREPATH "$ENV{PARSECOREPATH}" CACHE STRING "vita-parse-core main.py")
 
 # Game-specific definitions
 set(DATA_PATH "ux0:data/tFPA/" CACHE STRING "Path to data (with trailing /)")
-set(SO_PATH "${DATA_PATH}main.so" CACHE STRING "Path to .so")
+set(SO_PATH "${DATA_PATH}libmain.so" CACHE STRING "Path to .so")
 add_definitions(-DDATA_PATH="${DATA_PATH}" -DSO_PATH="${SO_PATH}")
 
 option(USE_SCELIBC_IO "Use SceLibcBridge for IO and some other std functions" ON)
