@@ -169,7 +169,13 @@ int AMotionEvent_getEventTime(const struct AInputEvent *motion_event)
    return 0;
 }
 
+size_t strlen_wrap(const char *s) {
+    if(s == NULL) return 0;
+	return strlen(s);
+}
+
 size_t __strlen_chk(const char *s, size_t s_len) {
+    if(s == NULL) return 0;
 	return strlen(s);
 }
 
@@ -1006,7 +1012,7 @@ so_default_dynlib default_dynlib[] = {
         { "strdup", (uintptr_t)&strdup },
         { "strlcat", (uintptr_t)&strlcat },
         { "strlcpy", (uintptr_t)&strlcpy },
-        { "strlen", (uintptr_t)&strlen },
+        { "strlen", (uintptr_t)&strlen_wrap },
         { "strncasecmp", (uintptr_t)&strncasecmp },
         { "strncat", (uintptr_t)&strncat },
         { "strncmp", (uintptr_t)&strncmp },
