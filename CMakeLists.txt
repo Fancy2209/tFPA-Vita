@@ -31,6 +31,11 @@ if (USE_SCELIBC_IO)
   add_definitions(-DUSE_SCELIBC_IO)
 endif()
 
+option(USE_KUBRIDGE "Disable this for Vita3K Support" ON)
+if (USE_KUBRIDGE)
+  add_definitions(-DUSE_KUBRIDGE)
+endif()
+
 set(SHADER_FORMAT "GLSL" CACHE STRING "Preferred shader format (one of 'GLSL', 'CG', 'GXP')")
 if (${SHADER_FORMAT} STREQUAL "GLSL")
   add_definitions(-DUSE_GLSL_SHADERS)

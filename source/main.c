@@ -1,5 +1,6 @@
 #include "utils/init.h"
 #include "utils/glutil.h"
+#include "utils/logger.h"
 
 #include <psp2/kernel/threadmgr.h>
 
@@ -24,24 +25,24 @@ int main() {
 									size_t savedStateSize) = (void *) so_symbol(&so_mod, "ANativeActivity_onCreate");
 
 	ANativeActivity *activity = ANativeActivity_create();
-	sceClibPrintf("Created NativeActivity object");
+	l_success("Created NativeActivity object");
 
 	ANativeActivity_onCreate(activity, NULL, 0);
-	sceClibPrintf("ANativeActivity_onCreate() passed");
+	l_success("ANativeActivity_onCreate() passed");
 
 	activity->callbacks->onStart(activity);
-	sceClibPrintf("onStart() passed");
+	l_success("onStart() passed");
 
 	AInputQueue *aInputQueue = AInputQueue_create();
 	activity->callbacks->onInputQueueCreated(activity, aInputQueue);
-	sceClibPrintf("onInputQueueCreated() passed");
+	l_success("onInputQueueCreated() passed");
 
 	ANativeWindow *aNativeWindow = ANativeWindow_create();
 	activity->callbacks->onNativeWindowCreated(activity, aNativeWindow);
-	sceClibPrintf("onNativeWindowCreated() passed");
+	l_success("onNativeWindowCreated() passed");
 
 	activity->callbacks->onWindowFocusChanged(activity, 1);
-	sceClibPrintf("onWindowFocusChanged() passed");
+	l_success("onWindowFocusChanged() passed");
 
     sceKernelExitDeleteThread(0);
 }
