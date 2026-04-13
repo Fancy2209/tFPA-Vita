@@ -100,7 +100,7 @@ add_executable(${CMAKE_PROJECT_NAME}
                lib/falso_jni/FalsoJNI_ImplBridge.c
                lib/falso_jni/FalsoJNI_Logger.c
                lib/falso_jni/converter.c
-               lib/AFakeNative/AAssetManager.cpp
+               #lib/AFakeNative/AAssetManager.cpp
                lib/AFakeNative/AConfiguration.cpp
                lib/AFakeNative/AFakeNative_Utils.cpp
                lib/AFakeNative/AInput.cpp
