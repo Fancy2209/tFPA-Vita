@@ -56,6 +56,9 @@
 #include "reimpl/egl.h"
 #include "reimpl/time64.h"
 #include "reimpl/asset_manager.h"
+
+#include <AFakeNative/polling/pseudo_pipe.h>
+#include <AFakeNative/PseudoEpoll.h>
 #include <AFakeNative/AFakeNative.h>
 
 const unsigned int __page_size = PAGE_SIZE;
