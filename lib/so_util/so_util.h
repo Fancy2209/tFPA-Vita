@@ -6,7 +6,7 @@
 
 #define MAX_DATA_SEG 4
 
-//#define USE_KUBRIDGE // Comment out to use VM domain instead
+#define USE_KUBRIDGE // Comment out to use VM domain instead
 
 #ifndef USE_KUBRIDGE
 extern SceUID vm_blk;
