@@ -27,6 +27,10 @@ jobs:
 
     - name: Install vitaGL
       run: |
+        git clone --depth=1 https://github.com/Rinnegatamante/vitaShaRK
+        cd vitaShaRK 
+        make install -j$(nproc)
+        cd ..
         git clone --depth=1 https://github.com/Rinnegatamante/vitaGL
         cd vitaGL
         make HAVE_VITA3K_SUPPORT=1 install -j$(nproc)
