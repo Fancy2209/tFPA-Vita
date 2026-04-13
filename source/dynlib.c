@@ -547,8 +547,8 @@ so_default_dynlib default_dynlib[] = {
         { "lseek64", (uintptr_t)&ret0 }, // TODO: implement or stub with warning
         { "lstat", (uintptr_t)&lstat },
         { "mkdir", (uintptr_t)&mkdir },
-        { "pipe", (uintptr_t)&pipe },
-        { "read", (uintptr_t)&read },
+        { "pipe", (uintptr_t)&pseudo_pipe },
+        { "read", (uintptr_t)&pseudo_read },
         { "realpath", (uintptr_t)&realpath },
         { "remove", (uintptr_t)&remove },
         { "rename", (uintptr_t)&rename },
@@ -556,7 +556,7 @@ so_default_dynlib default_dynlib[] = {
         { "rmdir", (uintptr_t)&rmdir },
         { "truncate", (uintptr_t)&truncate },
         { "unlink", (uintptr_t)&unlink },
-        { "write", (uintptr_t)&write },
+        { "write", (uintptr_t)&pseudo_write },
 
 
         // *printf, *scanf
