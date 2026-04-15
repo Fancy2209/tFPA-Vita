@@ -83,7 +83,7 @@ jobs:
 
     - uses: actions/upload-artifact@v7
       with:
-          name: artifact-vita3(
+          name: artifact-vita3
           path: |
             build/tFPA.vpk
             build/so_loader
