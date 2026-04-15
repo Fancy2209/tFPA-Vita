@@ -51,14 +51,14 @@ int main() {
 	activity->callbacks->onNativeWindowCreated(activity, aNativeWindow);
 	l_success("onNativeWindowCreated() passed");
 
-	activity->callbacks->onWindowFocusChanged(activity, 1);
-	l_success("onWindowFocusChanged() passed");
-
 	activity->callbacks->onStart(activity);
 	l_success("onStart() passed");
 
 	activity->callbacks->onResume(activity);
-	l_success("onStart() passed");
+	l_success("onResume() passed");
+
+	activity->callbacks->onWindowFocusChanged(activity, 1);
+	l_success("onWindowFocusChanged() passed");
 
     sceKernelExitDeleteThread(0);
 }
