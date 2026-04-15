@@ -50,3 +50,41 @@ jobs:
             build/tFPA.vpk
             build/so_loader
 
+  build-vita3k:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+    container: atamanenko/vitasdk-softfp:latest
+
+    steps:
+    - uses: actions/checkout@v6
+      with:
+          submodules: true
+
+    - name: Install vitaGL
+      run: |
+        git clone --depth=1 https://github.com/Rinnegatamante/vitaShaRK
+        cd vitaShaRK 
+        make install -j$(nproc)
+        cd ..
+        git clone --depth=1 https://github.com/Rinnegatamante/vitaGL
+        cd vitaGL
+        make SOFTFP_ABI=1 LOG_ERRORS=2 HAVE_DEBUGGER=1 HAVE_VITA3K_SUPPORT=1 -j$(nproc)
+
+    - name: Configure CMake
+      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+      run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DUSE_KUBRIDGE=OFF
+
+    - name: Build
+      # Build your program with the given configuration
+      run: cmake --build build --config ${{env.BUILD_TYPE}} --parallel $(nproc)
+
+    - uses: actions/upload-artifact@v7
+      name: artifact-vita3k
+      with:
+          path: |
+            build/tFPA.vpk
+            build/so_loader
+
