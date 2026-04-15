@@ -82,8 +82,8 @@ jobs:
       run: cmake --build build --config ${{env.BUILD_TYPE}} --parallel $(nproc)
 
     - uses: actions/upload-artifact@v7
-      name: artifact-vita3k
       with:
+          name: artifact-vita3(
           path: |
             build/tFPA.vpk
             build/so_loader
