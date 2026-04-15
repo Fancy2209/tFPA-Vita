@@ -10,8 +10,8 @@
 NameToMethodID nameToMethodId[] = {
 	{ 100, "showLoadingDialog", METHOD_TYPE_VOID },
 	{ 101, "hideLoadingDialog", METHOD_TYPE_VOID },
-	{ 102, "getShowSignIn", METHOD_TYPE_BOOL },
-	{ 103, "isPremiumUnlocked", METHOD_TYPE_BOOL },
+	{ 102, "getShowSignIn", METHOD_TYPE_BOOLEAN },
+	{ 103, "isPremiumUnlocked", METHOD_TYPE_BOOLEAN },
     { 104, "getPreferencesInt", METHOD_TYPE_INT },
 };
 
