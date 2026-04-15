@@ -1,6 +1,7 @@
 #include <falso_jni/FalsoJNI.h>
 #include <falso_jni/FalsoJNI_Impl.h>
 #include <falso_jni/FalsoJNI_Logger.h>
+#include <stdbool.h>
 
 /*
  * JNI Methods
@@ -9,6 +10,8 @@
 NameToMethodID nameToMethodId[] = {
 	{ 100, "showLoadingDialog", METHOD_TYPE_VOID },
 	{ 101, "hideLoadingDialog", METHOD_TYPE_VOID },
+	{ 102, "getShowSignIn", METHOD_TYPE_VOID },
+	{ 103, "isPremiumUnlocked", METHOD_TYPE_VOID },
 };
 
 void showLoadingDialog(jmethodID id, va_list args) { // V (ret type) is a void
@@ -21,7 +24,18 @@ void hideLoadingDialog(jmethodID id, va_list args) { // V (ret type) is a void
 	sceClibPrintf("hideLoadingDialog\n");
 }
 
-MethodsBoolean methodsBoolean[] = {};
+jboolean getShowSignIn(jmethodID id, va_list args) { // Z (ret type) is a bool
+    return false;
+}
+
+jboolean isPremiumUnlocked(jmethodID id, va_list args) { // Z (ret type) is a bool
+    return true;
+}
+
+MethodsBoolean methodsBoolean[] = {
+	{ 102, getShowSignIn },
+	{ 103, isPremiumUnlocked },
+};
 MethodsByte methodsByte[] = {};
 MethodsChar methodsChar[] = {};
 MethodsDouble methodsDouble[] = {};
