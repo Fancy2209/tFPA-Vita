@@ -6,7 +6,20 @@
  * JNI Methods
 */
 
-NameToMethodID nameToMethodId[] = {};
+NameToMethodID nameToMethodId[] = {
+	{ 100, "showLoadingDialog", METHOD_TYPE_VOID },
+	{ 101, "hideLoadingDialog", METHOD_TYPE_VOID },
+};
+
+void showLoadingDialog(jmethodID id, va_list args) { // V (ret type) is a void
+    // noop
+	sceClibPrintf("showLoadingDialog\n");
+}
+
+void hideLoadingDialog(jmethodID id, va_list args) { // V (ret type) is a void
+    // noop
+	sceClibPrintf("hideLoadingDialog\n");
+}
 
 MethodsBoolean methodsBoolean[] = {};
 MethodsByte methodsByte[] = {};
@@ -17,7 +30,10 @@ MethodsInt methodsInt[] = {};
 MethodsLong methodsLong[] = {};
 MethodsObject methodsObject[] = {};
 MethodsShort methodsShort[] = {};
-MethodsVoid methodsVoid[] = {};
+MethodsVoid methodsVoid[] = {
+	{ 100, showLoadingDialog },
+	{ 101, hideLoadingDialog },
+};
 
 /*
  * JNI Fields

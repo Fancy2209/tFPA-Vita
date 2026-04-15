@@ -68,12 +68,12 @@ AAsset* AAssetManager_open(AAssetManager* mgr, const char* filename, int mode) {
         a->opened = true;
     }
 
-    l_debug("AAssetManager_open<%p>(%p, %s, %i): %p", __builtin_return_address(0), mgr, realp.c_str(), mode, a);
+    //l_debug("AAssetManager_open<%p>(%p, %s, %i): %p", __builtin_return_address(0), mgr, realp.c_str(), mode, a);
     return (AAsset *) a;
 }
 
 void AAsset_close(AAsset* asset) {
-    l_debug("AAsset_close<%p>(%p)", __builtin_return_address(0), asset);
+    //l_debug("AAsset_close<%p>(%p)", __builtin_return_address(0), asset);
 
     if (asset) {
         auto * a = (aAsset *) asset;
@@ -90,7 +90,7 @@ void AAsset_close(AAsset* asset) {
 }
 
 int AAsset_read(AAsset* asset, void* buf, size_t count) {
-    l_debug("AAsset_read<%p>(%p, %p, %i)", __builtin_return_address(0), asset, buf, count);
+    //l_debug("AAsset_read<%p>(%p, %p, %i)", __builtin_return_address(0), asset, buf, count);
 
     if (!asset) {
         return -1;
@@ -125,7 +125,7 @@ int AAsset_read(AAsset* asset, void* buf, size_t count) {
 }
 
 off_t AAsset_seek(AAsset* asset, off_t offset, int whence) {
-    l_debug("AAsset_seek(%p, %d, %i)", asset, offset, whence);
+    //l_debug("AAsset_seek(%p, %d, %i)", asset, offset, whence);
 
     if (!asset) {
         return (off_t) -1;
@@ -147,7 +147,7 @@ off_t AAsset_seek(AAsset* asset, off_t offset, int whence) {
 }
 
 off_t AAsset_getRemainingLength(AAsset* asset) {
-    l_debug("AAsset_getRemainingLength");
+    //l_debug("AAsset_getRemainingLength");
     if (!asset) {
         return (off_t) -1;
     }
@@ -162,7 +162,7 @@ off_t AAsset_getRemainingLength(AAsset* asset) {
 }
 
 off_t AAsset_getLength(AAsset* asset) {
-    l_debug("AAsset_getLength");
+    //l_debug("AAsset_getLength");
     if (!asset) {
         return (off_t) -1;
     }
@@ -206,6 +206,6 @@ int AAsset_openFileDescriptor(AAsset* asset, off_t* outStart, off_t* outLength) 
         a->opened = false;
     }
     int ret = open(a->filename, O_RDONLY);
-    l_debug("AAsset_openFileDescriptor(%p/\"%s\", %p, %p): ret %i", asset, a->filename, outStart, outLength, ret);
+    //l_debug("AAsset_openFileDescriptor(%p/\"%s\", %p, %p): ret %i", asset, a->filename, outStart, outLength, ret);
     return ret;
 }
