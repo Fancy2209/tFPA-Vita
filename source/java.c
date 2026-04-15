@@ -10,8 +10,9 @@
 NameToMethodID nameToMethodId[] = {
 	{ 100, "showLoadingDialog", METHOD_TYPE_VOID },
 	{ 101, "hideLoadingDialog", METHOD_TYPE_VOID },
-	{ 102, "getShowSignIn", METHOD_TYPE_VOID },
-	{ 103, "isPremiumUnlocked", METHOD_TYPE_VOID },
+	{ 102, "getShowSignIn", METHOD_TYPE_BOOL },
+	{ 103, "isPremiumUnlocked", METHOD_TYPE_BOOL },
+    { 104, "getPreferencesInt", METHOD_TYPE_INT },
 };
 
 void showLoadingDialog(jmethodID id, va_list args) { // V (ret type) is a void
@@ -32,6 +33,11 @@ jboolean isPremiumUnlocked(jmethodID id, va_list args) { // Z (ret type) is a bo
     return true;
 }
 
+jint getPreferencesInt(jmethod id, va_list args) {
+	// TODO: Is this used for more fhan FANCY_PANTS_EXPLICIT_SIGNOUT?
+	return 0;
+}
+
 MethodsBoolean methodsBoolean[] = {
 	{ 102, getShowSignIn },
 	{ 103, isPremiumUnlocked },
@@ -40,7 +46,9 @@ MethodsByte methodsByte[] = {};
 MethodsChar methodsChar[] = {};
 MethodsDouble methodsDouble[] = {};
 MethodsFloat methodsFloat[] = {};
-MethodsInt methodsInt[] = {};
+MethodsInt methodsInt[] = {
+    { 104, getPreferencesInt }
+};
 MethodsLong methodsLong[] = {};
 MethodsObject methodsObject[] = {};
 MethodsShort methodsShort[] = {};
