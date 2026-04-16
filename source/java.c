@@ -33,7 +33,7 @@ jboolean isPremiumUnlocked(jmethodID id, va_list args) { // Z (ret type) is a bo
     return true;
 }
 
-jint getPreferencesInt(jmethod id, va_list args) {
+jint getPreferencesInt(jmethodID id, va_list args) {
 	// TODO: Is this used for more fhan FANCY_PANTS_EXPLICIT_SIGNOUT?
 	return 0;
 }
