@@ -30,7 +30,7 @@ jboolean getShowSignIn(jmethodID id, va_list args) { // Z (ret type) is a bool
 }
 
 jboolean isPremiumUnlocked(jmethodID id, va_list args) { // Z (ret type) is a bool
-    return true;
+    return false;
 }
 
 jint getPreferencesInt(jmethodID id, va_list args) {
