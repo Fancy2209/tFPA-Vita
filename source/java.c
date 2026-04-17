@@ -7,54 +7,67 @@
  * JNI Methods
 */
 
-NameToMethodID nameToMethodId[] = {
-	{ 100, "showLoadingDialog", METHOD_TYPE_VOID },
-	{ 101, "hideLoadingDialog", METHOD_TYPE_VOID },
-	{ 102, "getShowSignIn", METHOD_TYPE_BOOLEAN },
-	{ 103, "isPremiumUnlocked", METHOD_TYPE_BOOLEAN },
-    { 104, "getPreferencesInt", METHOD_TYPE_INT },
-};
 
-void showLoadingDialog(jmethodID id, va_list args) { // V (ret type) is a void
+void jniVNoop(jmethodID id, va_list args) { // V (ret type) is a void
     // noop
-	sceClibPrintf("showLoadingDialog\n");
 }
 
-void hideLoadingDialog(jmethodID id, va_list args) { // V (ret type) is a void
-    // noop
-	sceClibPrintf("hideLoadingDialog\n");
-}
-
-jboolean getShowSignIn(jmethodID id, va_list args) { // Z (ret type) is a bool
+jboolean jniZRet0(jmethodID id, va_list args) { // Z (ret type) is a bool
     return false;
 }
 
-jboolean isPremiumUnlocked(jmethodID id, va_list args) { // Z (ret type) is a bool
-    return false;
+jboolean jniZRet1(jmethodID id, va_list args) { // Z (ret type) is a bool
+    return true;
 }
 
 jint getPreferencesInt(jmethodID id, va_list args) {
+	jstring _pref = va_arg(args, jstring);
+	const char* pref = jni->GetStringUTFChars(&jni, _pref, NULL);
+	jint defaultValue = va_arg(args, jstring);
+	sceClibPrintf("%s\n", pref);
+	jni->ReleaseStringUTFChars(&jni, _pref, pref);
 	// TODO: Is this used for more fhan FANCY_PANTS_EXPLICIT_SIGNOUT?
-	return 0;
+	return defaultValue;
 }
 
+NameToMethodID nameToMethodId[] = {
+	{ 100, "showLoadingDialog",  METHOD_TYPE_VOID },
+	{ 101, "hideLoadingDialog",  METHOD_TYPE_VOID },
+	{ 102, "consumeReward",      METHOD_TYPE_VOID },
+
+	{ 103, "getShowSignIn",      METHOD_TYPE_BOOLEAN },
+	{ 104, "isPremiumUnlocked",  METHOD_TYPE_BOOLEAN },
+	{ 105, "isWorld1Unlocked",   METHOD_TYPE_BOOLEAN },
+	{ 106, "isWorld2Unlocked",   METHOD_TYPE_BOOLEAN },
+	{ 107, "isWardrobeUnlocked", METHOD_TYPE_BOOLEAN },
+	{ 108, "isRewardReady",      METHOD_TYPE_BOOLEAN },
+
+    { 109, "getPreferencesInt",  METHOD_TYPE_INT },
+
+};
+
 MethodsBoolean methodsBoolean[] = {
-	{ 102, getShowSignIn },
-	{ 103, isPremiumUnlocked },
+	{ 103, jniZRet0 },
+	{ 104, jniZRet1 },
+	{ 105, jniZRet1 },
+	{ 106, jniZRet1 },
+	{ 107, jniZRet1 },
+	{ 108, jniZRet1 },
 };
 MethodsByte methodsByte[] = {};
 MethodsChar methodsChar[] = {};
 MethodsDouble methodsDouble[] = {};
 MethodsFloat methodsFloat[] = {};
 MethodsInt methodsInt[] = {
-    { 104, getPreferencesInt }
+    { 109, getPreferencesInt }
 };
 MethodsLong methodsLong[] = {};
 MethodsObject methodsObject[] = {};
 MethodsShort methodsShort[] = {};
 MethodsVoid methodsVoid[] = {
-	{ 100, showLoadingDialog },
-	{ 101, hideLoadingDialog },
+	{ 100, jniVNoop },
+	{ 101, jniVNoop },
+	{ 102, jniVNoop },
 };
 
 /*
