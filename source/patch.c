@@ -74,10 +74,8 @@ so_hook ccontrol_fade_hook;
 void Engine_GUI_CControl_Fade_hook(void *this, float arg1, float arg2)
 {
     if(this == NULL) return;
-#ifdef USE_KUBRIDGE
-    SO_CONTINUE(typeof(&Engine_GUI_CControl_Fade_hook), &ccontrol_fade_hook, this, arg1, arg2);
 
-#endif
+    SO_CONTINUE(int, ccontrol_fade_hook, this, arg1, arg2);
 }
 
 void so_patch(void) {
