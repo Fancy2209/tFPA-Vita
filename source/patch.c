@@ -11,6 +11,7 @@
  *        for better compatibility.
  */
 
+#include "utils/utils.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <kubridge.h>
@@ -22,7 +23,7 @@
 extern so_module so_mod;
 
 static bool didHack = false;
-bool _ZNK13CMenuGameMode15WantConsoleMenuEv_hook(void* this)
+bool _ZNK13CMenuGameMode15WantConsoleMenuEv(void* this)
 {
     if(didHack) return *(int *)(this + 0x44) == 9;
     
@@ -41,17 +42,16 @@ bool _ZNK13CMenuGameMode15WantConsoleMenuEv_hook(void* this)
         void (*CMenuGameMode_SetMenuState)(void* this, int state);
         CMenuGameMode_SetMenuState = (typeof(CMenuGameMode_SetMenuState))so_symbol(&so_mod, "_ZN13CMenuGameMode12SetMenuStateENS_10EMenuStateE");
 
-        unsigned char abStack_28[12*8];
-        make_std_string((void*)&abStack_28, "INTRO_LEVEL");
-        CMainGameMode_SetNextLevel(&abStack_28, false, false, false, false);
+        unsigned char HUBWORLD3BEDROOM_str[12*8];
+        make_std_string((void*)&HUBWORLD3BEDROOM_str, "HUBWORLD3BEDROOM");
+        CMainGameMode_SetNextLevel(&HUBWORLD3BEDROOM_str, false, false, false, false);
         CMenuGameMode_SetMenuState(this, 10);
         didHack = true;
     }
     return *menuState == 9;
 }
 
-
-void CBird_Done_hook(void* this) {
+void CBird_Done(void* this) {
     if(this == NULL) return; 
 
     void** obj = *(void*** )((uintptr_t)this + 0x218);
@@ -69,19 +69,58 @@ void CBird_Done_hook(void* this) {
     CEnemy_Done(this);
 }
 
+static void* (*GUI_CControl_InvalidateColor)(void*) = NULL;
 
-so_hook ccontrol_fade_hook;
-void Engine_GUI_CControl_Fade_hook(void *this, float arg1, float arg2)
+void* GUI_CControl_Fade(void* this, float a2, float a3)
 {
-    if(this == NULL) return;
+    if (!this)
+    {
+        return this;
+    }
 
-    SO_CONTINUE(int, ccontrol_fade_hook, this, arg1, arg2);
+    if (!GUI_CControl_InvalidateColor)
+        GUI_CControl_InvalidateColor =
+            so_symbol(&so_mod, "_ZNK3GUI8CControl15InvalidateColorEv");
+
+    float v3;
+
+    *(float*)(this + 0xF0) = a2;
+
+    if (a3 <= 0.0000099999997f && a3 >= -0.0000099999997f)
+    {
+        *(uint32_t*)(this + 0x114) = 0;
+        *(float*)(this + 0xEC) = a2;
+        *(float*)(this + 0xF4) = 0.0f;
+
+        return GUI_CControl_InvalidateColor(this);
+    }
+
+    v3 = a2 - *(float*)(this + 0xEC);
+
+    if (v3 <= 0.0000099999997f)
+    {
+        if (v3 >= -0.0000099999997f)
+        {
+            *(uint32_t*)(this + 0x114) = 0;
+            *(float*)(this + 0xF4) = 0.0f;
+            return GUI_CControl_InvalidateColor(this);
+        }
+
+        *(uint32_t*)(this + 0x114) = 2;
+    }
+    else
+    {
+        *(uint32_t*)(this + 0x114) = 1;
+    }
+
+    *(float*)(this + 0xF4) = v3 / a3;
+    return GUI_CControl_InvalidateColor(this);
 }
 
 void so_patch(void) {
     // TODO: There's definetely something wrong... The UI should work
     // The game is also throwing Unhandled SISGEV like crazy on Vita3K
-    hook_addr((uintptr_t)so_symbol(&so_mod, "_ZNK13CMenuGameMode15WantConsoleMenuEv"), (uintptr_t)&_ZNK13CMenuGameMode15WantConsoleMenuEv_hook);
-    hook_addr((uintptr_t)so_symbol(&so_mod, "_ZN5CBird4DoneEv"), (uintptr_t)&CBird_Done_hook);
-    hook_addr((uintptr_t)so_symbol(&so_mod, "_ZN3GUI8CControl4FadeEff"), (uintptr_t)&Engine_GUI_CControl_Fade_hook);
+    hook_addr((uintptr_t)so_symbol(&so_mod, "_ZNK13CMenuGameMode15WantConsoleMenuEv"), (uintptr_t)&_ZNK13CMenuGameMode15WantConsoleMenuEv);
+    hook_addr((uintptr_t)so_symbol(&so_mod, "_ZN5CBird4DoneEv"), (uintptr_t)&CBird_Done);
+    hook_addr((uintptr_t)so_symbol(&so_mod, "_ZN3GUI8CControl4FadeEff"), (uintptr_t)&GUI_CControl_Fade);
 }
