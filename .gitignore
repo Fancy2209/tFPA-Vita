@@ -1,4 +1,5 @@
 build/*
+build_vm/*
 .DS_Store
 .idea/
 cmake-build-*/

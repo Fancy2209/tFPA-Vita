@@ -57,11 +57,13 @@ void soloader_init_all() {
         l_success("FIOS initialized.");
 #endif
 
+#ifdef USE_KUBRIDGE
     if (!module_loaded("kubridge")) {
         l_fatal("kubridge is not loaded.");
         fatal_error("Error: kubridge.skprx is not installed.");
     }
     l_success("kubridge check passed.");
+#endif
 
     if (!file_exists(SO_PATH)) {
         fatal_error("Looks like you haven't installed the data files for this "
