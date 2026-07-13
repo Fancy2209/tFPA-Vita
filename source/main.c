@@ -18,20 +18,7 @@ int sceLibcHeapSize = 4 * 1024 * 1024;
 
 so_module so_mod;
 
-int crasher(unsigned int argc, void *argv) {
-  uint32_t *null_ptr = NULL;
-  for (;;) {
-    SceCtrlData pad;
-    sceCtrlPeekBufferPositive(0, &pad, 1);
-    if (pad.buttons & SCE_CTRL_SELECT) *null_ptr = 0;
-    sceKernelDelayThread(100);
-  }
-}
-
 int main() {
-	SceUID crasher_thread = sceKernelCreateThread("crasher", crasher, 0x40, 0x1000, 0, 0, NULL);
-    sceKernelStartThread(crasher_thread, 0, NULL);
-
     soloader_init_all();
 
     int (*ANativeActivity_onCreate)(ANativeActivity *activity, void *savedState,
