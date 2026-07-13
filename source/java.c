@@ -34,8 +34,8 @@ NameToMethodID nameToMethodId[] = {
 	{ 100, "showLoadingDialog",  METHOD_TYPE_VOID },
 	{ 101, "hideLoadingDialog",  METHOD_TYPE_VOID },
 	{ 102, "consumeReward",      METHOD_TYPE_VOID },
-
 	{ 103, "getShowSignIn",      METHOD_TYPE_BOOLEAN },
+
 	{ 104, "isPremiumUnlocked",  METHOD_TYPE_BOOLEAN },
 	{ 105, "isWorld1Unlocked",   METHOD_TYPE_BOOLEAN },
 	{ 106, "isWorld2Unlocked",   METHOD_TYPE_BOOLEAN },
@@ -47,12 +47,13 @@ NameToMethodID nameToMethodId[] = {
 };
 
 MethodsBoolean methodsBoolean[] = {
-	{ 103, jniZRet0 },
-	{ 104, jniZRet1 },
-	{ 105, jniZRet1 },
-	{ 106, jniZRet1 },
-	{ 107, jniZRet1 },
-	{ 108, jniZRet1 },
+	{ 103, jniZRet0 }, // getShowSignIn
+
+	{ 104, jniZRet0 }, // isPremiumUnlocked
+	{ 105, jniZRet0 }, // isWorld1Unlocked
+	{ 106, jniZRet0 }, // isWorld2Unlocked
+	{ 107, jniZRet0 }, // isWardrobeUnlocked
+	{ 108, jniZRet1 }, // isRewardReady
 };
 MethodsByte methodsByte[] = {};
 MethodsChar methodsChar[] = {};
