@@ -37,7 +37,7 @@ jobs:
 
     - name: Install patched OpenSLES
       run: |
-        git clone --depth=1 https://github.com/Fancy2209/opensles -b tFPA
+        git clone --depth=1 https://github.com/Fancy2209/opensles -b tfpa
         cd opensles/libopensles
         make install -j$(nproc)
 
