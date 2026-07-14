@@ -21,7 +21,7 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-This produces `build/VpkNameYouChose.vpk`. Install it on the Vita like any other homebrew, then copy the game data to `DATA_PATH`.
+This produces `build/tFPA.vpk`. Install it on the Vita like any other homebrew, then copy the game data to `ux0:data/tFPA`.
 
 ## Credits
 
