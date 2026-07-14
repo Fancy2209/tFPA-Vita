@@ -8,6 +8,7 @@
  */
 
 #include "utils/dialog.h"
+#include "utils/glutil.h"
 
 #include <psp2/ctrl.h>
 #include <psp2/ime_dialog.h>
@@ -131,7 +132,7 @@ void fatal_error(const char *fmt, ...) {
     sceClibVsnprintf(string, sizeof(string), fmt, list);
     va_end(list);
 
-    vglInit(0);
+    gl_init();
 
     init_msg_dialog(string);
 
@@ -145,17 +146,13 @@ void fatal_error(const char *fmt, ...) {
 }
 
 void warning(const char *msg) {
-  SceMsgDialogUserMessageParam msg_param;
-  sceClibMemset(&msg_param, 0, sizeof(SceMsgDialogUserMessageParam));
-  msg_param.buttonType = SCE_MSG_DIALOG_BUTTON_TYPE_OK;
-  msg_param.msg = (const SceChar8*)msg;
-  SceMsgDialogParam param;
-  sceMsgDialogParamInit(&param);
-  param.mode = SCE_MSG_DIALOG_MODE_USER_MSG;
-  param.userMsgParam = &msg_param;
-  sceMsgDialogInit(&param);
-  while (sceMsgDialogGetStatus() != SCE_COMMON_DIALOG_STATUS_FINISHED) {
-    vglSwapBuffers(GL_TRUE);
-  }
-  sceMsgDialogTerm();
+    gl_init();
+
+    init_msg_dialog(msg);
+
+    while (sceMsgDialogGetStatus() != SCE_COMMON_DIALOG_STATUS_FINISHED) {
+      vglSwapBuffers(GL_TRUE);
+    }
+
+    sceMsgDialogTerm();
 }
