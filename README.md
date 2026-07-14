@@ -10,7 +10,7 @@ For Playing:
 For Building:  
 - [VitaSDK-softfp](https://github.com/vitasdk-softfp#how-to-install) installed and `VITASDK` env var pointing to it.
 - [kubridge](https://github.com/bythos14/kubridge) - kernel plugin required for RWX memory; must be installed on the target Vita.
-- A modified version of [OpenSLES](https://github.com/Fancy2209/opensles/tree/tfpa) - modified version 
+- [OpenSLES](https://github.com/Fancy2209/opensles/tree/tfpa) - modified version 
 
 If you're new to Vita homebrew development in general, start with [Getting Started with PSVita Homebrew Development](https://web.archive.org/web/20250216192850/https://gl33ntwine.com/posts/develop-for-vita/) first.
 
