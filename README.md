@@ -246,7 +246,8 @@ Debug builds enable `DEBUG_SOLOADER` logging throughout the loader. You can also
 ## Credits
 
 - [TheFloW](https://github.com/TheOfficialFloW) - original so-loader, gtasa_vita
-- [Rinnegatamante](https://github.com/Rinnegatamante) - VitaGL, numerous ports and contributions
+- [Rinnegatamante](https://github.com/Rinnegatamante) - VitaGL, numerous ports and contributions, trophy code
+- [withLogic](https://github.com/withLogic) - VitaGL, numerous ports and contributions, VitaTRPBuilder and help with the TRP File
 - [fgsfds](https://github.com/fgsfds) - various contributions
 
 ## License

@@ -11,10 +11,10 @@ project(so_loader C CXX)
 include("${VITASDK}/share/vita.cmake" REQUIRED)
 
 # Vita application configuration
-set(VITA_APP_NAME "The Fancy Pants Adventures")
+set(VITA_APP_NAME "The Fancy Pants Adventures™")
 set(VITA_TITLEID "TFPA00000")
 set(VITA_VPKNAME "tFPA")
-set(VITA_VERSION "01.23")
+set(VITA_VERSION "01.00")
 set(VITA_MKSFOEX_FLAGS "-d ATTRIBUTE2=12")
 
 # Optional: used for "send" and "dump" targets
@@ -101,12 +101,12 @@ add_executable(${CMAKE_PROJECT_NAME}
                source/utils/init.c
                source/utils/logger.c
                source/utils/settings.c
+               source/utils/trophies.c
                source/utils/utils.c
                lib/falso_jni/FalsoJNI.c
                lib/falso_jni/FalsoJNI_ImplBridge.c
                lib/falso_jni/FalsoJNI_Logger.c
                lib/falso_jni/converter.c
-               #lib/AFakeNative/AAssetManager.cpp
                lib/AFakeNative/AConfiguration.cpp
                lib/AFakeNative/AFakeNative_Utils.cpp
                lib/AFakeNative/AInput.cpp
@@ -175,7 +175,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
                       ScePower_stub
                       SceTouch_stub
                       SceVshBridge_stub
-                      )
+                      SceNpTrophy_stub
+)
 
 vita_create_self(eboot.bin ${CMAKE_PROJECT_NAME} UNSAFE NOASLR)
 vita_create_vpk(${VITA_VPKNAME}.vpk ${VITA_TITLEID} eboot.bin
@@ -189,6 +190,7 @@ vita_create_vpk(${VITA_VPKNAME}.vpk ${VITA_TITLEID} eboot.bin
                 ${CMAKE_SOURCE_DIR}/extras/livearea/startup.png sce_sys/livearea/contents/startup.png
                 ${CMAKE_SOURCE_DIR}/extras/livearea/bg0.png sce_sys/livearea/contents/bg0.png
                 ${CMAKE_SOURCE_DIR}/extras/livearea/template.xml sce_sys/livearea/contents/template.xml
+                ${CMAKE_SOURCE_DIR}/extras/livearea/TROPHY.TRP sce_sys/trophy/${VITA_TITLEID}_00/TROPHY.TRP
                 )
 
 add_custom_target(send

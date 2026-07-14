@@ -14,15 +14,19 @@
 #include "utils/logger.h"
 #include "utils/utils.h"
 #include "utils/settings.h"
+#include "utils/trophies.h"
+
 
 #include <AFakeNative/utils/controls.h>
 
 #include <string.h>
+#include <stdio.h>
 
 #include <psp2/appmgr.h>
 #include <psp2/apputil.h>
 #include <psp2/kernel/clib.h>
 #include <psp2/power.h>
+#include <psp2/io/stat.h>
 
 #include <falso_jni/FalsoJNI.h>
 #include <so_util/so_util.h>
@@ -30,6 +34,8 @@
 
 // Base address for the Android .so to be loaded at
 #define LOAD_ADDRESS 0x98000000
+
+#define TROPHIES_FILE DATA_PATH"trophies.chk"
 
 extern so_module so_mod;
 
@@ -99,4 +105,13 @@ void soloader_init_all() {
 
     jni_init();
     l_success("FalsoJNI initialized.");
+
+	// Initing trophy system
+	SceIoStat st;
+	int r = trophies_init();
+    if (r < 0 && sceIoGetstat(TROPHIES_FILE, &st) < 0) {
+        FILE *f = fopen(TROPHIES_FILE, "w");
+		fclose(f);
+		warning("This game features unlockable trophies but NoTrpDrm is not installed. If you want to be able to unlock trophies, please install it.");
+	}
 }

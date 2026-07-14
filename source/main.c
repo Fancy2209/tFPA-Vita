@@ -1,6 +1,8 @@
 #include "utils/init.h"
+#include "utils/dialog.h"
 #include "utils/glutil.h"
 #include "utils/logger.h"
+#include "utils/trophies.h"
 
 #include <psp2/kernel/threadmgr.h>
 
@@ -17,7 +19,6 @@ int sceLibcHeapSize = 4 * 1024 * 1024;
 #endif
 
 so_module so_mod;
-
 int main() {
     soloader_init_all();
 
