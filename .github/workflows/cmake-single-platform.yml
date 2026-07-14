@@ -10,7 +10,7 @@ on:
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Debug
+  BUILD_TYPE: RelWithDebInfo
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
         cd ..
         git clone --depth=1 https://github.com/Rinnegatamante/vitaGL
         cd vitaGL
-        make SOFTFP_ABI=1 LOG_ERRORS=2 HAVE_DEBUGGER=1 install -j$(nproc)
+        make SOFTFP_ABI=1 LOG_ERRORS=0 HAVE_DEBUGGER=0 HAVE_HIGH_FFP_TEXUNITS=1 install -j$(nproc)
 
     - name: Install patched OpenSLES
       run: |
