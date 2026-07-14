@@ -4,7 +4,7 @@
 
 ## Prerequisites
 For Playing:  
-- The target game's `.so` 
+- The game's `.so` 
 - Data files from version 1.23 extracted from its APK.
 
 For Building:  
