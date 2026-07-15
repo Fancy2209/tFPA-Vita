@@ -33,7 +33,7 @@ jobs:
         cd ..
         git clone --depth=1 https://github.com/Rinnegatamante/vitaGL
         cd vitaGL
-        make SOFTFP_ABI=1 LOG_ERRORS=0 HAVE_DEBUGGER=0 HAVE_HIGH_FFP_TEXUNITS=1 install -j$(nproc)
+        make SOFTFP_ABI=1 LOG_ERRORS=1 HAVE_DEBUGGER=0 HAVE_HIGH_FFP_TEXUNITS=1 STORE_DEPTH_STENCIL=1 install -j$(nproc)
 
     - name: Install patched OpenSLES
       run: |
