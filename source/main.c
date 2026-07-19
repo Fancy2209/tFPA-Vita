@@ -12,6 +12,8 @@
 
 #include <AFakeNative/utils/controls.h>
 
+#include <vitasdk.h>
+
 int _newlib_heap_size_user = 256 * 1024 * 1024;
 
 #ifdef USE_SCELIBC_IO
@@ -20,6 +22,7 @@ int sceLibcHeapSize = 4 * 1024 * 1024;
 
 so_module so_mod;
 int main() {
+	sceSysmoduleLoadModule(SCE_SYSMODULE_RAZOR_CAPTURE);
     soloader_init_all();
 
     int (*ANativeActivity_onCreate)(ANativeActivity *activity, void *savedState,
