@@ -201,6 +201,11 @@ add_custom_target(send
                   DEPENDS ${VITA_VPKNAME}.vpk-vpk
                   )
 
+add_custom_target(send_eboot
+                  COMMAND curl -T eboot.bin ftp://${PSVITAIP}:1337/ux0:/app/${VITA_TITLEID}/
+                  DEPENDS ${VITA_VPKNAME}.vpk-vpk
+                  )
+
 add_custom_target(send_kvdb
                   COMMAND echo destroy | nc ${PSVITAIP} 1338
                   COMMAND curl -T eboot.bin ftp://${PSVITAIP}:1337/ux0:/app/${VITA_TITLEID}/
